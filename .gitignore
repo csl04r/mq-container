@@ -22,3 +22,4 @@ internal/qmgrauth/qmgroam/patch
 .envrc
 .direnv
 result
+.idea/
