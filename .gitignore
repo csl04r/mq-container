@@ -22,3 +22,6 @@ internal/qmgrauth/qmgroam/patch
 .envrc
 .direnv
 result
+
+# intellij
+.idea/

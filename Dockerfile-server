@@ -110,6 +110,8 @@ LABEL summary="IBM MQ Advanced Server" \
   base-image-release=$BASE_TAG
 COPY --from=mq-redux /opt/mqm-redux/ /opt/mqm/
 COPY setup-image.sh /usr/local/bin/
+RUN curl http://swroot.sherwin.com/swroot.pem > /etc/pki/ca-trust/source/anchors/swroot.pem
+RUN update-ca-trust
 COPY install-mq-server-prereqs.sh /usr/local/bin/
 RUN env \
   && chmod u+x /usr/local/bin/install-*.sh \
@@ -181,6 +183,7 @@ LABEL summary="IBM MQ Advanced for Developers Server" \
   base-image-release=$BASE_TAG
 USER 0
 COPY --from=cbuilder /opt/app-root/src/authservice/mqsimpleauth/build/mqsimpleauth.so /opt/mqm/lib64/
+COPY --from=cbuilder /opt/mqm/inc /opt/mqm/inc
 COPY etc/mqm/qm-service-component.ini.default /etc/mqm/
 COPY --from=builder $GO_WORKDIR/runmqdevserver /usr/local/bin/
 # Copy template files
